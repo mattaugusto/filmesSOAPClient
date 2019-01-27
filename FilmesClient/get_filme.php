@@ -1,15 +1,14 @@
 <?php
   try {
-    $filtro = trim($_GET['filtro']);
+    $id = trim($_GET['id']);
     $client = new SoapClient('http://127.0.0.1:8666/filme?wsdl');
-    $function = 'consulta';
+    $function = 'get';
     $arguments = array(
-      'filtro' => $filtro,
+      'id' => $id,
     );
     $response = $client->__soapCall($function, $arguments);
     session_start();
-    $_SESSION['filmes'] = $response;
-    header("Location: http://localhost/FilmesClient/");
+    print_r($response);
     die();
   } catch (Exception $exception) {
       die('Error initializing SOAP client: ' . $exception->getMessage());

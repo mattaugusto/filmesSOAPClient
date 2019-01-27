@@ -1,14 +1,20 @@
 <?php
   try {
-    $filtro = trim($_GET['filtro']);
+    $id = $_POST['id'];
+    $titulo = $_POST['titulo'];
+    $diretor = $_POST['diretor'];
+    $genero = $_POST['genero'];
+    $lancamento = $_POST['lancamento'];
     $client = new SoapClient('http://127.0.0.1:8666/filme?wsdl');
-    $function = 'consulta';
+    $function = 'altera';
     $arguments = array(
-      'filtro' => $filtro,
+      'id' => $id,
+      'titulo' => $titulo,
+      'diretor' => $diretor,
+      'genero' => $genero,
+      'lancamento' => $lancamento
     );
     $response = $client->__soapCall($function, $arguments);
-    session_start();
-    $_SESSION['filmes'] = $response;
     header("Location: http://localhost/FilmesClient/");
     die();
   } catch (Exception $exception) {
